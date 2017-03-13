@@ -1,0 +1,1 @@
+export var SERVER_URL = 'localhost:8000'

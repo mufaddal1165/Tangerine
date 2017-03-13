@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "Human Resources",
+    "count": 27
+  },
+  {
+    "_id": "Technical Degree",
+    "count": 132
+  },
+  {
+    "_id": "Marketing",
+    "count": 159
+  },
+  {
+    "_id": "Life Sciences",
+    "count": 606
+  },
+  {
+    "_id": "Other",
+    "count": 82
+  },
+  {
+    "_id": "Medical",
+    "count": 464
+  }
+]
