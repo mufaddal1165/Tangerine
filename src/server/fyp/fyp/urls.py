@@ -17,11 +17,11 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from rest_framework import routers
 import sys,os
-from view_sets.employee import EmployeeViewSet 
+from view_sets.employee import EmployeeViewSet,DivergingViewSet
 
 router = routers.DefaultRouter()
 router.register(r'employees',EmployeeViewSet,r'employee')
-
+router.register(r'diverging',DivergingViewSet,r'diverging')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
