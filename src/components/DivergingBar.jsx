@@ -10,6 +10,7 @@ class DivergingBar extends Component {
             .response(xhr => JSON.parse(xhr.responseText))
             .get(data => this.draw(data))
 
+
     }
     draw(data) {
         var margin = 100

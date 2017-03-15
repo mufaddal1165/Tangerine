@@ -19,4 +19,7 @@ class DivergingSerializer(serializers.Serializer):
     children = fields.ListField()
 
 class ScatterSerializer(serializers.Serializer):
-    attr1
+    attr1 = fields.IntegerField()
+    attr2 = fields.IntegerField()
+    attr3 = fields.IntegerField()
+    
