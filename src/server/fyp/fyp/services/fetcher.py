@@ -59,3 +59,15 @@ def count_group_by_attr(attr1,attr2):
     for i,doc in enumerate(res):
         groups[i] = doc    
     return groups
+
+def get_scatter(attr1,attr2,attr3=None):
+    if not attr3:
+        query = {attr1:1,att2:1,'_id':0}
+    else:
+        query = {attr1:1,att2:1,attr3:1,'_id':0}
+
+    res = collection.find({},query)
+    groups = dict()
+    for i,doc in enumerate(res):
+        groups[i] = doc
+    return groups

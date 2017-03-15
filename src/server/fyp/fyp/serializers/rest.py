@@ -17,3 +17,6 @@ class DataDiverging(serializers.Serializer):
 class DivergingSerializer(serializers.Serializer):
     _id = fields.CharField()
     children = fields.ListField()
+
+class ScatterSerializer(serializers.Serializer):
+    attr1

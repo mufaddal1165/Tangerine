@@ -155,7 +155,7 @@ class BarChart extends Component {
                 scopeSelector='.barchart'
                 rules={{
                     rect: {
-                        fill: 'crimson'
+                        fill: '#FFC400'
                     },
                     '.bars:hover': {
                         fill: 'yellow'
@@ -168,7 +168,11 @@ class BarChart extends Component {
                     },
                     '.axisLine':{
                         'strokeDasharray':3
+                    },
+                    '.x':{
+                        fontSize:'1.5rem'
                     }
+
                 }}
             ></Style>
         </div>)

@@ -13,7 +13,7 @@ class App extends Component{
 
        
        
-        <BarChart w={1000} h={700}/>
+        <DBarChart w={800} h={600}/>
       
         
         </div>
