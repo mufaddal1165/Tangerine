@@ -14,7 +14,7 @@ class App extends Component{
 
        
        
-        <Scatter w={800} h={600} attr1='Age' attr2='YearsAtCompany' attr3='JobSatisfaction'/>
+        <Scatter w={900} h={600} attr1='Age' attr2='YearsAtCompany' attr3='Attrition'/>
       
         
         </div>

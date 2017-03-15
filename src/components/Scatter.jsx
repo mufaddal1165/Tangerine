@@ -27,7 +27,7 @@ class Scatter extends Component {
         var height = this.props.h - margin
         var distinct_attr3 = (d3.map(data, d => d.attr3).keys())
         var colorGen = d3.scaleQuantize().range(distinct_attr3).domain([0, 1])
-
+        var radius = 7
         var svg = d3.select('.scatter')
             .append('svg')
             .attr('height', height + margin)
@@ -50,7 +50,7 @@ class Scatter extends Component {
         d3.selectAll('circle')
             .attr('cx', d => xScale(d.attr1))
             .attr('cy', d => yScale(d.attr2))
-            .attr('r', 5)
+            .attr('r', radius)
             .attr('fill', d => {
                 let ub = colorGen.invertExtent(d.attr3)
                 return d3.interpolateViridis(ub[1])
@@ -140,36 +140,43 @@ class Scatter extends Component {
             .attr('class', 'yaxis_label')
             .append('text')
             .text(`${this.props.attr1}`)
-            .attr('x',20)
-            .attr('y',(height+margin)/2)
+            .attr('x', 20)
+            .attr('y', (height + margin) / 2)
 
-      var xlabel = d3.select('.scatter')
-      .select('svg')
-      .append('g')
-      .attr('class','xaxis_label')
-      .append('text')
-      .text(`${this.props.attr2}`)
-      .attr('x',(margin+width)/2)
-      .attr('y',height+40)
+        var xlabel = d3.select('.scatter')
+            .select('svg')
+            .append('g')
+            .attr('class', 'xaxis_label')
+            .append('text')
+            .text(`${this.props.attr2}`)
+            .attr('x', (margin + width) / 2)
+            .attr('y', height + 40)
 
-      for (let i = 0;i<distinct_attr3.length;i++){
-          let ub = colorGen.invertExtent(distinct_attr3[i])
-          d3.select('svg')
-          .append('rect')
-          .attr('x',width+20)
-          .attr('y',100+i*20)
-          .attr('width',15)
-          .attr('height',15)
-          .attr('fill',d3.interpolateViridis(ub[1]))
 
-           d3.select('svg')
-          .append('text')
-          .attr('class','legendtext')
-          .attr('x',width+40)
-          .attr('y',110+i*20)
-          .text(distinct_attr3[i])
+        for (let i = 0; i < distinct_attr3.length; i++) {
+            let ub = colorGen.invertExtent(distinct_attr3[i])
+            d3.select('svg')
+                .append('rect')
+                .attr('x', width + 20)
+                .attr('y', 100 + i * 20)
+                .attr('width', 15)
+                .attr('height', 15)
+                .attr('fill', d3.interpolateViridis(ub[1]))
 
-      }
+            d3.select('svg')
+                .append('text')
+                .attr('class', 'legendtext')
+                .attr('x', width + 40)
+                .attr('y', 110 + i * 20)
+                .text(distinct_attr3[i])
+
+        }
+        d3.select('svg')
+            .append('text')
+            .text(`${this.props.attr3}`)
+            .attr('x', width + 40)
+            .attr('y', 90)
+
 
 
     }
@@ -179,7 +186,7 @@ class Scatter extends Component {
                 <Style scopeSelector='.scatter'
                     rules={{
                         circle: {
-                            opacity: 0.7,
+                            opacity: 0.3,
 
                         },
                         '.tooltip': {
@@ -191,10 +198,10 @@ class Scatter extends Component {
                         '.axisLine': {
                             'strokeDasharray': 3
                         },
-                        '.legendtext':{
-                            fontSize:'1.1rem'
+                        '.legendtext': {
+                            fontSize: '1.1rem'
                         }
-                        
+
                     }}
 
                 ></Style>
