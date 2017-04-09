@@ -16,7 +16,7 @@ class BarChart extends Component {
     this.state = {
         isToolTip : false
     }
-        d3.request(`http://localhost:8000/api/employees?q=RelationshipSatisfaction`)
+        d3.request(`http://localhost:8000/api/employees?q=JobSatisfaction`)
             .mimeType('application/json')
             .response(xhr => JSON.parse(xhr.responseText))
             .get(data => this.draw(data))

@@ -12,13 +12,24 @@ export var intializeChart = (className) => {
 
 }
 
-export var tooltipGen = (className)=> d3.select(`.${className}`)
-            .append('text')
-            .attr('class', 'tooltip')
-            .attr('opacity', 0)
- 
-export var axisLineGen =(className)=> d3.select(`.${className}`).select('svg').append('line')
-            .attr('class', 'axisLine')
-            .style('stroke', 'rgb(0,0,0)')
-            .style('stroke-width', 1)
-            .style('opacity', 0)  
+export var tooltipGen = (className) => d3.select(`.${className}`)
+    .append('text')
+    .attr('class', 'tooltip')
+    .attr('opacity', 0)
+
+export var axisLineGen = (className) => d3.select(`.${className}`).select('svg').append('line')
+    .attr('class', 'axisLine')
+    .style('stroke', 'rgb(0,0,0)')
+    .style('stroke-width', 1)
+    .style('opacity', 0)
+
+export var orderListLV = (lis) => {
+    if (lis.length < 4)
+        return lis
+    else {
+        if (lis.includes('Low') && lis.includes('Very High'))
+            return Array.of('Low', 'Medium', 'High', 'Very High')
+        
+    }
+    return lis
+}

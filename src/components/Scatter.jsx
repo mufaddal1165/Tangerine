@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import { Style } from 'radium'
-import { tooltipGen, axisLineGen } from './subroutines.js'
+import { tooltipGen, axisLineGen,orderListLV } from './subroutines.js'
 
 class Scatter extends Component {
 
@@ -25,7 +25,7 @@ class Scatter extends Component {
         var margin = 90
         var width = this.props.w - margin
         var height = this.props.h - margin
-        var distinct_attr3 = (d3.map(data, d => d.attr3).keys())
+        var distinct_attr3 = orderListLV((d3.map(data, d => d.attr3).keys()))
         var colorGen = d3.scaleQuantize().range(distinct_attr3).domain([0, 1])
         var radius = 7
         var svg = d3.select('.scatter')
@@ -186,7 +186,7 @@ class Scatter extends Component {
                 <Style scopeSelector='.scatter'
                     rules={{
                         circle: {
-                            opacity: 0.3,
+                            opacity: 0.7,
 
                         },
                         '.tooltip': {

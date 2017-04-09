@@ -17,12 +17,14 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from rest_framework import routers
 import sys,os
-from view_sets.employee import EmployeeViewSet,DivergingViewSet,ScatterViewSet
+from view_sets.employee import EmployeeViewSet,DivergingViewSet,ScatterViewSet,DecisionTree,DecisionTreeAPI
 
 router = routers.DefaultRouter()
 router.register(r'employees',EmployeeViewSet,r'employee')
 router.register(r'diverging',DivergingViewSet,r'diverging')
 router.register(r'scatter',ScatterViewSet,r'scatter')
+router.register(r'tree',DecisionTree,r'tree')
+router.register(r'tup',DecisionTreeAPI.as_view(),r'tup')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
