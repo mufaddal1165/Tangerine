@@ -7,12 +7,12 @@ import itertools
 from nltk.corpus import stopwords as stopwords
 from nltk.probability import FreqDist
 from time import time
-from matplotlib import pyplot as plt
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 import csv
 import numpy
 import watson
+import subprocess
 
 def get_collocations(doc):
     bigram_measures = BigramAssocMeasures()
@@ -48,44 +48,47 @@ def get_assoc(df,entity,corpus):
         print(e)
     return assoc_list
 
-stopset=set(stopwords.words('english'))
-t0 = time()
-# data  sample.jsonl is obtained through scraper
-corpus = refinery.get_clean_tweets(r'../data/sample.jsonl')
-print("time to read corpus %s"%(time()-t0))
-vectorizer = CountVectorizer(stop_words = stopset)
-tdm = vectorizer.fit_transform(corpus)
-df = pd.DataFrame(tdm.toarray().transpose(),index = vectorizer.get_feature_names())
-df.to_csv(path_or_buf='tdm.csv', sep=",", na_rep='', float_format=None, columns=None, header=True, index=True, index_label=None, mode='w', encoding=None, compression=None, quoting=None, quotechar='"', line_terminator='\n', chunksize=None, tupleize_cols=False, date_format=None, doublequote=True, escapechar=None, decimal='.')
+def generate_word_cloud(query):
+    subprocess.check_call(['node','./node_scraper/scraper-cli','-s 2017-04-03','-u 2017-04-09','-q %s'%query,'-f unilever','-l 5000'])
+    stopset=set(stopwords.words('english'))
+    t0 = time()
+    # data  sample.jsonl is obtained through scraper
+    corpus = refinery.get_clean_tweets(r'../data/sample.jsonl')
+    print("time to read corpus %s"%(time()-t0))
+    vectorizer = CountVectorizer(stop_words = stopset)
+    tdm = vectorizer.fit_transform(corpus)
+    df = pd.DataFrame(tdm.toarray().transpose(),index = vectorizer.get_feature_names())
+    df.to_csv(path_or_buf='tdm.csv', sep=",", na_rep='', float_format=None, columns=None, header=True, index=True, index_label=None, mode='w', encoding=None, compression=None, quoting=None, quotechar='"', line_terminator='\n', chunksize=None, tupleize_cols=False, date_format=None, doublequote=True, escapechar=None, decimal='.')
 
-""" results are generated usind sample.jsonl file. The script which sends request is this 
-   results = watson.get_entities(corpus)
-    with open('../watson_results/results_sample.json',mode='w') as fp:
+
+    # """ results are generated usind sample.jsonl file. The script which sends request is this 
+    results = watson.get_entities(corpus)
+    with open('../repositories/watson_results/results_sample.json',mode='w') as fp:
         json.dump(results,fp)
     fp.close()
 
-"""
-with open('../watson_results/results_sample.json', mode='r') as fp:
-    obj = json.load(fp)
-fp.close()
+    # """
+    with open('../repositories/watson_results/results_sample.json', mode='r') as fp:
+        obj = json.load(fp)
+    fp.close()
 
-# file word_cloud / word_cloud_trial contains the josnl which can be rendered into a word cloud
-with open('../watson_results/word_cloud_trial.jsonl',mode='w') as fp:
+    # file word_cloud / word_cloud_trial contains the josnl which can be rendered into a word cloud
+    with open('../repositories/word_clouds/word_cloud_trial.jsonl',mode='w') as fp:
 
-    entities = obj['entities']
-    for entity in entities[:2]:
-        if int(entity['count']) > 0:
-            ent = entity['text']
-            print(entity['count']," : ",ent)
-            if " " in ent:
-                tmp = []
-                for comp in ent.split(" "):
-                    tmp.append((get_assoc(df,comp,corpus)))
-                entity['assoc'] = tmp
-            else:
-                entity['assoc'] = get_assoc(df,ent,corpus)
-            json.dump(entity, fp)
-            fp.write('\n')
-fp.close()
+        entities = obj['entities']
+        for entity in entities[:2]:
+            if int(entity['count']) > 0:
+                ent = entity['text']
+                print(entity['count']," : ",ent)
+                if " " in ent:
+                    tmp = []
+                    for comp in ent.split(" "):
+                        tmp.append((get_assoc(df,comp,corpus)))
+                    entity['assoc'] = tmp
+                else:
+                    entity['assoc'] = get_assoc(df,ent,corpus)
+                json.dump(entity, fp)
+                fp.write('\n')
+    fp.close()
 
-# print(get_assoc(df, 'thursday',corpus))
+    # print(get_assoc(df, 'thursday',corpus))

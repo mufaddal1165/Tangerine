@@ -78,6 +78,6 @@ def get_scatter(attr1,attr2,attr3):
         groups[i] = doc
     return groups
 
-def get_word_cloud(query):
-    cloud = dict()
-    cloud["cloud"] = 
+# def get_word_cloud(query):
+#     cloud = dict()
+#     cloud["cloud"] = 

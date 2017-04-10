@@ -1,0 +1,12 @@
+{
+  "name": "node-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "cheerio": "^0.22.0",
+    "moment": "^2.17.1",
+    "yargs": "^7.0.2"
+  }
+}

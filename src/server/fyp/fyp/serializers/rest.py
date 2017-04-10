@@ -21,7 +21,7 @@ class DivergingSerializer(serializers.Serializer):
 class ScatterSerializer(serializers.Serializer):
     attr1 = fields.IntegerField()
     attr2 = fields.IntegerField()
-    attr3 = fields.IntegerField()
+    attr3 = fields.CharField()
 
 class DecisionTreeSerializer(serializers.Serializer):
     tree = fields.DictField()
