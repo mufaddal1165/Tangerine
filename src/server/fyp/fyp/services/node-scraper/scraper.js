@@ -5,7 +5,7 @@ const moment = require('moment');
 const { writeFile, truncateSync } = require('fs');
 
 const TWITTER_DATE_FORMAT = 'YYYY-MM-DD';
-const SAVE_FOLDER = './tweets';
+const SAVE_FOLDER = '.C:\\Users\\Mufaddal\\Desktop\\FYP\\Tangerine\\src\\server\\fyp\\fyp\\services\\node-scraper\\tweets';
 
 function fetchTweets({ query, since, until, filename, truncate, limit = Infinity }) {
     if (truncate == true) {

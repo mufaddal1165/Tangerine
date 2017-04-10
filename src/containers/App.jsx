@@ -15,13 +15,8 @@ class App extends Component{
         return <div>
 
        
-       <Col sm={6}>    
         <Scatter w={600} h={450} attr1='Age' attr2='YearsAtCompany' attr3='RelationshipSatisfaction'/>
-        </Col>
-        <Col sm={6}>
-        <BarChart w={600} h={500}/>
-        </Col>
-        {/*<DecisionTree></DecisionTree>*/}
+        
         
         </div>
 

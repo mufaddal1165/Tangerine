@@ -26,8 +26,8 @@ class ScatterSerializer(serializers.Serializer):
 class DecisionTreeSerializer(serializers.Serializer):
     tree = fields.DictField()
 
-class WordCloud(serializers.Serializer):
-    cloud = fields.DictField()
+class WordCloudSerializer(serializers.Serializer):
+    cloud = fields.ListField()
 
 class BrandPerception(serializers.Serializer):
     perceptions = fields.DictField()

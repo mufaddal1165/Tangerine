@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 from constants import _MONGODB,_MONGOC
 from pprint import pprint
+from services.word_cloud import generate_word_cloud
+
 client = MongoClient()
 db = client[_MONGODB]
 collection = db[_MONGOC]
@@ -78,6 +80,13 @@ def get_scatter(attr1,attr2,attr3):
         groups[i] = doc
     return groups
 
-# def get_word_cloud(query):
-#     cloud = dict()
-#     cloud["cloud"] = 
+def get_attributes():
+
+    attr = [key for key in collection.find_one()]
+    
+
+def get_word_cloud(query):
+    cloud = dict()
+    wordcloud = generate_word_cloud(query)
+    cloud[0] = dict(cloud = wordcloud)
+    return cloud

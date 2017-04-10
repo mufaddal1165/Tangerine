@@ -94,7 +94,7 @@ if (cluster.isMaster) {
 function finish(tweets, filename, numCPUs) {
     console.log(`All processes finished. Total tweets fetched: ${tweets}. files:`);
     for (let i = 0; i < numCPUs; i++) {
-        console.log(`${__dirname}/tweets/${filename}.jsonl-${i}`);
+        console.log(`${__dirname}/tweets/${filename}-${i}`);
     }
     process.exit();
 }

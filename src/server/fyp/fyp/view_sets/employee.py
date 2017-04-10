@@ -52,7 +52,7 @@ class ScatterViewSet(viewsets.ViewSet):
 
 class DecisionTree(viewsets.ViewSet):
     serializer_class = DecisionTreeSerializer
-    
+    print(tree)    
     def list(self,request):
         serializer = DecisionTreeSerializer(
         instance = tree
