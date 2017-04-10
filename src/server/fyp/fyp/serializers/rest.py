@@ -32,3 +32,6 @@ class WordCloudSerializer(serializers.Serializer):
 class BrandPerception(serializers.Serializer):
     perceptions = fields.DictField()
 
+class AttributesListSerializer(serializers.Serializer):
+    attributes = fields.ListField()
+    

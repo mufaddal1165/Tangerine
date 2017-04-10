@@ -1,9 +1,9 @@
-from serializers.rest import EmployeeSerializer,DivergingSerializer,ScatterSerializer,DecisionTreeSerializer
+from serializers.rest import EmployeeSerializer,DivergingSerializer,ScatterSerializer,DecisionTreeSerializer,AttributesListSerializer
 # from rest_framework_mongoengine import viewsets
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from services.fetcher import count_by_attr,count_group_by_attr,get_scatter
+from services.fetcher import count_by_attr,count_group_by_attr,get_scatter,get_attributes
 from rest_framework import status
 
 tree = {"tree":{"name":"OverTime","split":"No","left":"=","right":"=", "children":[ {"name":"Age","split":"21.5","left":">=","right":"<", "children":[ {"name":"leaf","yes": 61 , "no": 618 } , {"name":"DailyRate","split":"623.5","left":">=","right":"<", "children":[ {"name":"leaf","yes": 2 , "no": 10 } , {"name":"leaf","yes": 9 , "no": 2 } ] } ] } , {"name":"MonthlyIncome","split":"3485","left":">=","right":"<", "children":[ {"name":"JobRole","split":"Healthcare Representative,Manager,Manufacturing Director,Research Director,Research Scientist","left":"=","right":"=", "children":[ {"name":"leaf","yes": 12 , "no": 104 } , {"name":"MaritalStatus","split":"Divorced,Married","left":"=","right":"=", "children":[ {"name":"leaf","yes": 10 , "no": 44 } , {"name":"MonthlyIncome","split":"4724.5","left":"<","right":">=", "children":[ {"name":"leaf","yes": 1 , "no": 6 } , {"name":"JobSatisfaction","split":"3.5","left":">=","right":"<", "children":[ {"name":"leaf","yes": 3 , "no": 5 } , {"name":"leaf","yes": 12 , "no": 1 } ] } ] } ] } ] } , {"name":"StockOptionLevel","split":"0.5","left":">=","right":"<", "children":[ {"name":"BusinessTravel","split":"Non-Travel,Travel_Rarely","left":"=","right":"=", "children":[ {"name":"TrainingTimesLastYear","split":"2.5","left":">=","right":"<", "children":[ {"name":"leaf","yes": 1 , "no": 15 } , {"name":"HourlyRate","split":"66","left":">=","right":"<", "children":[ {"name":"leaf","yes": 1 , "no": 7 } , {"name":"leaf","yes": 9 , "no": 4 } ] } ] } , {"name":"leaf","yes": 8 , "no": 3 } ] } , {"name":"DistanceFromHome","split":"9.5","left":"<","right":">=", "children":[ {"name":"EducationField","split":"Life Sciences,Medical","left":"=","right":"=", "children":[ {"name":"leaf","yes": 7 , "no": 11 } , {"name":"leaf","yes": 13 , "no": 2 } ] } , {"name":"leaf","yes": 18 , "no": 1 } ] } ] } ] } ] }}
@@ -65,3 +65,14 @@ class DecisionTreeAPI(APIView):
         print(request.GET)
         response = Response((1,2,3))
         return response
+
+class AttributesListViewSet(viewsets.ViewSet):
+    serializer_class = AttributesListSerializer
+
+    def list(self,request):
+        
+        attributes = get_attributes()
+        serializer = AttributesListSerializer(
+            instance =  attributes.values(), many = True
+        ) 
+        return Response(serializer.data)

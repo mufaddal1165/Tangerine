@@ -5,6 +5,9 @@ import DBarChart from '../components/DivergingBar.jsx'
 import BarChart from '../components/Bar_d.jsx'
 import Scatter from '../components/Scatter.jsx'
 import DecisionTree from '../components/DecisionTree.jsx'
+import SideBar from '../components/SideBar.jsx'
+import {Style} from 'radium'
+
 
 class App extends Component{
     constructor(props){
@@ -13,10 +16,17 @@ class App extends Component{
     render(){
 
         return <div>
-
-       
-        <Scatter w={600} h={450} attr1='Age' attr2='YearsAtCompany' attr3='RelationshipSatisfaction'/>
         
+       <div className="sidebar">    
+        <Style scopeSelector=".sidebar" rules={{
+            position:"absolute",
+            left:"0px"
+        }}>
+            
+        </Style>
+        
+        <SideBar/>        
+        </div>       
         
         </div>
 

@@ -17,7 +17,8 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from rest_framework import routers
 import sys,os
-from view_sets.employee import EmployeeViewSet,DivergingViewSet,ScatterViewSet,DecisionTree,DecisionTreeAPI
+from view_sets.employee import EmployeeViewSet,DivergingViewSet,ScatterViewSet,DecisionTree,DecisionTreeAPI,AttributesListViewSet
+
 from view_sets.wordcloud import WordCloudViewSet
 router = routers.DefaultRouter()
 router.register(r'employees',EmployeeViewSet,r'employee')
@@ -26,6 +27,7 @@ router.register(r'scatter',ScatterViewSet,r'scatter')
 router.register(r'tree',DecisionTree,r'tree')
 router.register(r'tup',DecisionTreeAPI.as_view(),r'tup')
 router.register(r'wordcloud',WordCloudViewSet,r'wordcloud')
+router.register(r'attributes',AttributesListViewSet,r'attributes')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

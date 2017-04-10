@@ -82,8 +82,10 @@ def get_scatter(attr1,attr2,attr3):
 
 def get_attributes():
 
+    att = dict()
     attr = [key for key in collection.find_one()]
-    
+    att[0] = dict(attributes=attr)
+    return att
 
 def get_word_cloud(query):
     cloud = dict()
