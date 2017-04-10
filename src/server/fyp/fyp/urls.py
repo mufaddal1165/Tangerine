@@ -25,7 +25,7 @@ router.register(r'employees',EmployeeViewSet,r'employee')
 router.register(r'diverging',DivergingViewSet,r'diverging')
 router.register(r'scatter',ScatterViewSet,r'scatter')
 router.register(r'tree',DecisionTree,r'tree')
-router.register(r'tup',DecisionTreeAPI.as_view(),r'tup')
+router.register(r'tup',DecisionTreeAPI,r'tup')
 router.register(r'wordcloud',WordCloudViewSet,r'wordcloud')
 router.register(r'attributes',AttributesListViewSet,r'attributes')
 

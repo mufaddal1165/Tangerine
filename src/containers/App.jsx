@@ -6,6 +6,8 @@ import BarChart from '../components/Bar_d.jsx'
 import Scatter from '../components/Scatter.jsx'
 import DecisionTree from '../components/DecisionTree.jsx'
 import SideBar from '../components/SideBar.jsx'
+import TopBar from '../components/TopBar.jsx'
+
 import {Style} from 'radium'
 
 
@@ -16,7 +18,7 @@ class App extends Component{
     render(){
 
         return <div>
-        
+     <TopBar/>   
        <div className="sidebar">    
         <Style scopeSelector=".sidebar" rules={{
             position:"absolute",
@@ -25,7 +27,7 @@ class App extends Component{
             
         </Style>
         
-        <SideBar/>        
+               
         </div>       
         
         </div>
