@@ -8,7 +8,7 @@ class BarChartDisplay extends Component {
         return (
             <div>
             <ChartsDisplay title="Job Satisfaction">
-            <BarChart attr="JobSatisfaction" w={550} h={550}></BarChart>    
+            <BarChart attr="JobSatisfaction" w={600} h={600}></BarChart>    
             </ChartsDisplay>                
             </div>
         )

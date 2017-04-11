@@ -7,37 +7,49 @@ class Scatter extends Component {
 
     constructor(props) {
         super(props)
-
     }
     componentDidMount() {
 
         var attr1 = this.props.attr1;
         var attr2 = this.props.attr2;
         var attr3 = this.props.attr3;
-
+        console.log("props",this.props)
         d3.request(`http://localhost:8000/api/scatter?x=${attr1}&y=${attr2}&z=${attr3}`)
             .mimeType('application/json')
             .response(xhr => JSON.parse(xhr.responseText))
             .get(data => this.draw(data))
 
     }
+    componentWillUpdate () {
+        d3.selectAll(".scatter > *").remove();
+         var attr1 = this.props.attr1;
+        var attr2 = this.props.attr2;
+        var attr3 = this.props.attr3;
+        console.log("props",this.props)
+        d3.request(`http://localhost:8000/api/scatter?x=${attr1}&y=${attr2}&z=${attr3}`)
+            .mimeType('application/json')
+            .response(xhr => JSON.parse(xhr.responseText))
+            .get(data => this.draw(data))
+
+    }
+    
     draw(data) {
-        var margin = 90
-        var width = this.props.w - margin
-        var height = this.props.h - margin
+        var margin_h = 90
+        var margin_w = 170
+        var width = 1.5*this.props.w - margin_w
+        var height = this.props.h - margin_h
         var distinct_attr3 = orderListLV((d3.map(data, d => d.attr3).keys()))
         var colorGen = d3.scaleQuantize().range(distinct_attr3).domain([0, 1])
         var radius = (width + height) / 200
         var svg = d3.select('.scatter')
             .append('svg')
-            .attr('height', height + margin)
-            .attr('width', width + margin)
-        console.log(data)
+            .attr('height', height + margin_h)
+            .attr('width', width + margin_w)
         var x_extent = d3.extent(data.map(d => d.attr1))
         var y_extent = d3.extent(data.map(d => d.attr2))
 
-        var xScale = d3.scaleLinear().range([margin, width]).domain(x_extent)
-        var yScale = d3.scaleLinear().range([height, margin]).domain(y_extent)
+        var xScale = d3.scaleLinear().range([margin_w, width]).domain(x_extent)
+        var yScale = d3.scaleLinear().range([height, margin_h]).domain(y_extent)
 
 
         d3.select('.scatter')
@@ -70,7 +82,7 @@ class Scatter extends Component {
             .select('svg')
             .append('g')
             .attr('class', 'y axis')
-            .attr('transform', `translate(${margin - 10},0)`)
+            .attr('transform', `translate(${margin_w - 10},0)`)
             .call(yAxis)
 
         var tooltip = tooltipGen('scatter')
@@ -113,7 +125,7 @@ class Scatter extends Component {
 
                 axisLine2.transition()
                     .duration(500)
-                    .attr('x1', margin - 5)
+                    .attr('x1', margin_w - 5)
                     .attr('x2', xScale(d.attr1))
                     .attr('y1', yScale(d.attr2))
                     .attr('y2', yScale(d.attr2))
@@ -141,16 +153,16 @@ class Scatter extends Component {
                 .attr('class', 'yaxis_label')
                 .append('text')
                 .text(`${this.props.attr2}`)
-                .attr('x', 20)
-                .attr('y', (height + margin) / 2)
-
+                .attr('x', 70)
+                .attr('y', (height + margin_h) / 2)
+                .attr('transform',`rotate(${90},${70},${(height + margin_h) / 2})`)
             var xlabel = d3.select('.scatter')
                 .select('svg')
                 .append('g')
                 .attr('class', 'xaxis_label')
                 .append('text')
                 .text(`${this.props.attr1}`)
-                .attr('x', (margin + width) / 2)
+                .attr('x', (margin_w + width) / 2)
                 .attr('y', height + 40)
 
 
@@ -183,6 +195,7 @@ class Scatter extends Component {
 
     }
     render() {
+        console.log("fdsf",this.props)
         const thumbnail = this.props.w < 400 ? true : false
         return (
             <div className='scatter'>

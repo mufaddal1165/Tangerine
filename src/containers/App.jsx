@@ -9,6 +9,7 @@ import SideBar from '../components/SideBar.jsx'
 import TopBar from '../components/TopBar.jsx'
 import Border from '../components/Border.jsx'
 import { Style } from 'radium'
+import WordCloud from '../components/viz/WordCloud/index.js'
 
 
 class HumanResource extends Component {
@@ -34,7 +35,7 @@ class HumanResource extends Component {
                     backgroundColor:"#eeeeee"
                 }}></Style>
                 <Border type="Scatter">
-                    <Scatter attr1="Age" attr2="YearsAtCompany" attr3="Attrition" w={350} h={350}></Scatter>
+                    <Scatter attr2="Age" attr1="YearsAtCompany" attr3="Attrition" w={350} h={350}></Scatter>
                 </Border>
                 <Border type="Bar">
 
@@ -46,6 +47,7 @@ class HumanResource extends Component {
                 <Border type="DecisionTree">
                 DecisionTree
                 </Border>
+               
             </div>
         </div>
 

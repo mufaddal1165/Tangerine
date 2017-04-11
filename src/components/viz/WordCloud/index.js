@@ -4,13 +4,14 @@ import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 import classnames from 'classnames';
 import isArray from 'isarray';
+import axios from 'axios'
 import './WordCloud.css';
 
-import trump from './trump.json';
-const data = trump.map((o) => {
-  o.size = o.count;
-  return o;
-});
+// import trump from './trump.json';
+// const data = trump.map((o) => {
+//   o.size = o.count;
+//   return o;
+// });
 
 class WordCloud extends Component {
   constructor(){
@@ -22,7 +23,7 @@ class WordCloud extends Component {
     this.showTooltip = this.showTooltip.bind(this);
     this.hideTooltip = this.hideTooltip.bind(this);
   }
-
+  
   showTooltip(d) {
     this.setState({ isTooltipActive: true, hoveredData: d });
   }
@@ -35,10 +36,16 @@ class WordCloud extends Component {
     const container = this.svgContainer;
     const self = this;
     var fill = d3.scaleOrdinal(d3.schemeCategory20)
-
+    axios.get('./trump.json')
+    .then(cloud=>{
+      console.log(cloud)
+      this.setState({
+        data:cloud.data
+      })
+    })
     var layout = cloud()
         .size([this.props.w, this.props.h])
-        .words(data)
+        .words(this.state.data)
         .padding(5)
         .rotate(function() { return (~~(Math.random() * 5) - 2) * 20; })
         .font("Impact")
