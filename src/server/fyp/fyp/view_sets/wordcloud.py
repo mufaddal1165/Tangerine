@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from serializers.rest import WordCloudSerializer
-
+import json
 
 class WordCloudViewSet(viewsets.ViewSet):
     serializer_class = WordCloudSerializer
@@ -17,3 +17,12 @@ class WordCloudViewSet(viewsets.ViewSet):
 
         return Response(serializer.data)
 
+# class ImpactScorer(viewsets.ViewSet):
+
+#     def list(self,request):
+#         screen_name= request.query_params['impact']
+#         k = Klout("vqex3snhkfyvpq2ncpjjettx")
+#         kloutId  = k.identity.klout(screenname=screen_name).get('id')
+
+#         score = k.user.score(kloutId=kloutId).get('score')
+#         return Response(json.dumps(score))

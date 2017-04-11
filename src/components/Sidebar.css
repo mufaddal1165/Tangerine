@@ -1,0 +1,60 @@
+aside {
+  background-color: #fff;
+  height: 100%;
+  padding: 10px;
+  border-right: solid #945959 3px;
+}
+
+aside .logo {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: App-logo-spin infinite 20s linear;
+
+}
+
+aside h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: left;
+  /*text-indent: -120px;*/
+}
+
+aside ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+aside ul li {
+  display: block;
+  margin: 15px 5px;
+}
+
+aside ul a {
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+aside ul a.active {
+  color: #00bae8;
+}
+
+aside ul a:hover {
+  color: #00bae8;
+}
+
+aside ul img {
+  vertical-align: middle;
+  margin-right: 30px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -5,7 +5,7 @@ import { Style } from 'radium'
 class DivergingBar extends Component {
 
     componentDidMount() {
-        d3.request(`http://localhost:8000/api/diverging?x=MaritalStatus&y=Attrition`)
+        d3.request(`http://localhost:8000/api/diverging?x=${this.props.attr1}&y=${this.props.attr2}`)
             .mimeType('application/json')
             .response(xhr => JSON.parse(xhr.responseText))
             .get(data => this.draw(data))
@@ -18,6 +18,9 @@ class DivergingBar extends Component {
         var height = this.props.h - margin
         var colors = [d3.interpolateInferno(0.7), d3.interpolateInferno(0.4)]
         var bindwidth = 300/data.length < 40 ? 300/data.length : 40
+        if (width < 350){
+            bindwidth = 20
+        }
 
 
         var svg = d3.select('.divergingbars')
@@ -241,11 +244,12 @@ class DivergingBar extends Component {
         }
     }
     render() {
+         const thumbnail = this.props.w < 400 ? true : false
         return (
             <div className="divergingbars">
                 <Style scopeSelector='.divergingbars' rules={{
                     '.axis': {
-                        fontSize: '1.2rem'
+                        fontSize: thumbnail?'0.5rem':'1.2rem'
                     },
                     '.tooltip': {
                         backgroundColor: 'black',

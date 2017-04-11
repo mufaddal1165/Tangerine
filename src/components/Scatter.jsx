@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import { Style } from 'radium'
-import { tooltipGen, axisLineGen,orderListLV } from './subroutines.js'
+import { tooltipGen, axisLineGen, orderListLV } from './subroutines.js'
 
 class Scatter extends Component {
 
@@ -27,7 +27,7 @@ class Scatter extends Component {
         var height = this.props.h - margin
         var distinct_attr3 = orderListLV((d3.map(data, d => d.attr3).keys()))
         var colorGen = d3.scaleQuantize().range(distinct_attr3).domain([0, 1])
-        var radius = 7
+        var radius = (width + height) / 200
         var svg = d3.select('.scatter')
             .append('svg')
             .attr('height', height + margin)
@@ -134,53 +134,56 @@ class Scatter extends Component {
                     .style('opacity', 0)
             })
 
-        var ylabel = d3.select('.scatter')
-            .select('svg')
-            .append('g')
-            .attr('class', 'yaxis_label')
-            .append('text')
-            .text(`${this.props.attr1}`)
-            .attr('x', 20)
-            .attr('y', (height + margin) / 2)
+        if (width > 400) {
+            var ylabel = d3.select('.scatter')
+                .select('svg')
+                .append('g')
+                .attr('class', 'yaxis_label')
+                .append('text')
+                .text(`${this.props.attr2}`)
+                .attr('x', 20)
+                .attr('y', (height + margin) / 2)
 
-        var xlabel = d3.select('.scatter')
-            .select('svg')
-            .append('g')
-            .attr('class', 'xaxis_label')
-            .append('text')
-            .text(`${this.props.attr2}`)
-            .attr('x', (margin + width) / 2)
-            .attr('y', height + 40)
+            var xlabel = d3.select('.scatter')
+                .select('svg')
+                .append('g')
+                .attr('class', 'xaxis_label')
+                .append('text')
+                .text(`${this.props.attr1}`)
+                .attr('x', (margin + width) / 2)
+                .attr('y', height + 40)
 
 
-        for (let i = 0; i < distinct_attr3.length; i++) {
-            let ub = colorGen.invertExtent(distinct_attr3[i])
-            d3.select('svg')
-                .append('rect')
-                .attr('x', width + 20)
-                .attr('y', 100 + i * 20)
-                .attr('width', 15)
-                .attr('height', 15)
-                .attr('fill', d3.interpolateViridis(ub[1]))
+            for (let i = 0; i < distinct_attr3.length; i++) {
+                let ub = colorGen.invertExtent(distinct_attr3[i])
+                d3.select('svg')
+                    .append('rect')
+                    .attr('x', width + 20)
+                    .attr('y', 100 + i * 20)
+                    .attr('width', 15)
+                    .attr('height', 15)
+                    .attr('fill', d3.interpolateViridis(ub[1]))
+
+                d3.select('svg')
+                    .append('text')
+                    .attr('class', 'legendtext')
+                    .attr('x', width + 40)
+                    .attr('y', 110 + i * 20)
+                    .text(distinct_attr3[i])
+
+            }
 
             d3.select('svg')
                 .append('text')
-                .attr('class', 'legendtext')
+                .text(`${this.props.attr3}`)
                 .attr('x', width + 40)
-                .attr('y', 110 + i * 20)
-                .text(distinct_attr3[i])
-
+                .attr('y', 90)
         }
-        d3.select('svg')
-            .append('text')
-            .text(`${this.props.attr3}`)
-            .attr('x', width + 40)
-            .attr('y', 90)
-
 
 
     }
     render() {
+        const thumbnail = this.props.w < 400 ? true : false
         return (
             <div className='scatter'>
                 <Style scopeSelector='.scatter'
@@ -200,6 +203,9 @@ class Scatter extends Component {
                         },
                         '.legendtext': {
                             fontSize: '1.1rem'
+                        },
+                        '.axis': {
+                            fontSize: thumbnail ? '0.5rem' : '1.2rem'
                         }
 
                     }}

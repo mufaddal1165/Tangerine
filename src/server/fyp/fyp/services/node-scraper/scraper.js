@@ -40,7 +40,7 @@ async function startDayTask(query, day, filename, limit, cb) {
     let returnedID = null;
 
     console.log('Sending request to:', initURL);
-    let res = await fetch(initURL, { agent: new HttpsProxyAgent('http://192.168.100.13:8080')});
+    let res = await fetch(initURL /*, { agent: new HttpsProxyAgent('http://192.168.100.13:8080')}*/);
     if (res.status == 200) {
         console.log('Success!');
         let $ = cheerio.load(await res.text());
@@ -55,7 +55,7 @@ async function startDayTask(query, day, filename, limit, cb) {
                 minID = returnedID;
             try {
                 const loopURL = `https://twitter.com/i/search/timeline?vertical=default&q=${queryString}&src=typd&include_available_features=1&include_entities=1&reset_error_state=false&max_position=${minID}`
-                res = await fetch(loopURL, { agent: new HttpsProxyAgent('http://192.168.100.13:8080')});
+                res = await fetch(loopURL/*, { agent: new HttpsProxyAgent('http://192.168.100.13:8080')}*/);
 
                 if (res.status != 200) throw new Error(`Status: ${res.status}`);
                 const responseData = await res.json();

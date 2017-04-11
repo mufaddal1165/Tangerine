@@ -7,7 +7,7 @@ class TopBar extends Component {
                 <Style scopeSelector=".topbar" rules={{
                     position: "relative",
                     height: "8rem",
-                    backgroundColor: "#E57373",
+                    backgroundColor: "#424242",
                     width: "100%",
                     display: "flex",
                     alignItems:"center",
@@ -35,7 +35,9 @@ class TopBar extends Component {
                 </Style>
                 <form action="get">
                     <input className="search" type="text" placeholder="Add data"/>
-                    <button type="submit">
+                    <button type="submit" onSubmit={(e)=>{
+                        this.preventDefault(e)
+                        }}>
                         Upload
                     </button>
                 </form>

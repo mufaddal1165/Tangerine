@@ -1,0 +1,23 @@
+.tooltip h4 {
+  color: green;
+}
+
+.tooltip h5 {
+  margin-bottom: 2px;
+}
+
+.tooltip p {
+  margin: 5px 5px;
+}
+
+.tooltip p.positive {
+  color: blue;
+}
+
+.tooltip p.negative {
+  color: red;
+}
+
+.tooltip p.neutral {
+  color: gray;
+}

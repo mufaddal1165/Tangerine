@@ -13,10 +13,10 @@ class BarChart extends Component {
 
     componentDidMount() {
 
-    this.state = {
-        isToolTip : false
-    }
-        d3.request(`http://localhost:8000/api/employees?q=JobSatisfaction`)
+        this.state = {
+            isToolTip: false
+        }
+        d3.request(`http://localhost:8000/api/employees?q=${this.props.attr}`)
             .mimeType('application/json')
             .response(xhr => JSON.parse(xhr.responseText))
             .get(data => this.draw(data))
@@ -97,59 +97,60 @@ class BarChart extends Component {
             })
 
         var tooltip = d3.select('.barchart').append('text')
-        .attr('class','tooltip')
-        .style('opacity',0)
+            .attr('class', 'tooltip')
+            .style('opacity', 0)
         var axisLine = d3.select('.barchart').select('svg').append('line')
-        .attr('class','axisLine')
-        .style('stroke','rgb(0,0,0)')
-        .style('stroke-width',1)
-        .style('opacity',0)
+            .attr('class', 'axisLine')
+            .style('stroke', 'rgb(0,0,0)')
+            .style('stroke-width', 1)
+            .style('opacity', 0)
 
         // debugger;
         d3.selectAll('rect')
-        .on('mouseover',(d,i)=>{
-            let count = d['count']
-            tooltip.transition()
-            .duration(1000)
-            .style('opacity',0.9)
-            tooltip.text(`${d['_id']}: ${d['count']}`)
-            .style('left',(d)=>horzScale(i)+'px')
-            .style('top',(d)=>(vertScale(count)-15)+'px')
-
-            axisLine.transition()
-            .duration(500)
-            .attr('x1',margin-10)
-            .attr('x2',margin-10)
-            .attr('y1',vertScale(d['count']))
-            .attr('y2',vertScale(d['count']))
-            .style('opacity',0.8)
-            .transition()
-            .duration(200)
-            .attr('x2',horzScale(i))
-            
-
-        })
-        .on('mouseout',
-            d=>{
+            .on('mouseover', (d, i) => {
+                let count = d['count']
                 tooltip.transition()
-                .duration(1000)
-                .style('opacity',0)
+                    .duration(1000)
+                    .style('opacity', 0.9)
+                tooltip.text(`${d['_id']}: ${d['count']}`)
+                    .style('left', (d) => horzScale(i) + 'px')
+                    .style('top', (d) => (vertScale(count) - 15) + 'px')
 
                 axisLine.transition()
-                .duration(1000)
-                .style('opacity',0)
+                    .duration(500)
+                    .attr('x1', margin - 10)
+                    .attr('x2', margin - 10)
+                    .attr('y1', vertScale(d['count']))
+                    .attr('y2', vertScale(d['count']))
+                    .style('opacity', 0.8)
+                    .transition()
+                    .duration(200)
+                    .attr('x2', horzScale(i))
+
+
+            })
+            .on('mouseout',
+            d => {
+                tooltip.transition()
+                    .duration(1000)
+                    .style('opacity', 0)
+
+                axisLine.transition()
+                    .duration(1000)
+                    .style('opacity', 0)
             }
-        )
-            
+            )
+
 
 
 
 
 
     }
-    
-    
+
+
     render() {
+        const thumbnail = this.props.w < 400 ? true : false
         return (<div className='barchart'>
             <Style
                 scopeSelector='.barchart'
@@ -160,17 +161,20 @@ class BarChart extends Component {
                     '.bars:hover': {
                         fill: 'yellow'
                     },
-                    '.tooltip':{
-                        backgroundColor:'black',
-                        padding:'0.5rem',
-                        borderRadius:'2px',
-                        color:'white'
+                    '.tooltip': {
+                        backgroundColor: 'black',
+                        padding: '0.5rem',
+                        borderRadius: '2px',
+                        color: 'white'
                     },
-                    '.axisLine':{
-                        'strokeDasharray':3
+                    '.axisLine': {
+                        'strokeDasharray': 3
                     },
-                    '.x':{
-                        fontSize:'1.5rem'
+                    '.x': {
+                        fontSize: '1.5rem'
+                    },
+                    '.axis': {
+                        fontSize: thumbnail ? "0.5rem" : "1.5rem"
                     }
 
                 }}
